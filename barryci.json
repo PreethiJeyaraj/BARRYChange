@@ -1,0 +1,6 @@
+{
+    "build": [{
+      "command": "gmake",
+      "args": ["-B","BIN_LIB=ILEUSION"]
+    }]
+}
