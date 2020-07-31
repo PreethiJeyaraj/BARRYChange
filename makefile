@@ -14,11 +14,9 @@ LF_TARGETS = TEST01A.LF
 all: $(LIB_TARGETS) $(PGM_TARGETS) $(PF_TARGETS) $(LF_TARGETS)
 
 %.lib:
-	-system -qi "CRTLIB LIB($*)"
-	@touch $@                                                                                 
+	-system -qi "CRTLIB LIB($*)"                                                                      
                                                                                                                      
-%.FILE: %.PF                                                                                                        
-		@echo "*** Creating PF [$*]"                                                                                                                                                               
+%.FILE: %.PF                                                                                                                                                                                                                                                                  
 		$(eval crtcmd := $(CRTFRMSTMFLIB)/crtfrmstmf obj($(BIN_LIB)/$*) cmd(CRTPF) srcstmf('$<') parms('$(CRTPFFLAGS)'))     
 		@system -v "$(TOOLSLIB)/EXECWLIBS LIB($(LIBL)) CMD($(crtcmd))"
  
