@@ -23,11 +23,11 @@ all: $(LIB_TARGETS) $(PGM_TARGETS) $(PF_TARGETS) $(LF_TARGETS)
 	system "CPYFRMSTMF FROMSTMF('$(IFSPATH)/$*.PF') TOMBR('/QSYS.lib/$(BIN_LIB).lib/QDDSSRC.file/$*.mbr') MBROPT(*REPLACE)"
 	system $(SYSTEM) "CRTPF FILE($(BIN_LIB)/$*) SRCFILE($(BIN_LIB)/QDDSSRC) SRCMBR($*)"
  
-%.FILE: %.LF                                                                                                        
+%.LF:                                                                                                       
 	system "CPYFRMSTMF FROMSTMF('$(IFSPATH)/$*.LF') TOMBR('/QSYS.lib/$(BIN_LIB).lib/QDDSSRC.file/$*.mbr') MBROPT(*REPLACE)"
 	system $(SYSTEM) "CRTPF FILE($(BIN_LIB)/$*) SRCFILE($(BIN_LIB)/QDDSSRC) SRCMBR($*)"               
 
-%.rpgle: qrpgsrc/%.rpgle
+%.rpgle:
 	-system -qi "CRTSRCPF FILE($(BIN_LIB)/QRPGLESRC) RCDLEN(112)"
 	system "CPYFRMSTMF FROMSTMF('$(IFSPATH)/$*.RPGLE') TOMBR('/QSYS.lib/$(BIN_LIB).lib/QDDSSRC.file/$*.mbr') MBROPT(*REPLACE)"
 	system $(SYSTEM) "CRTRPGPGM PGM($(BIN_LIB)/$*)"
