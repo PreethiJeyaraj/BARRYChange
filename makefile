@@ -16,7 +16,6 @@ all: $(LIB_TARGETS) $(PGM_TARGETS) $(PF_TARGETS) $(LF_TARGETS)
 
 %.lib:
 	-system -qi "CRTLIB LIB($*)"
-	@touch $@
                                                                                                                      
 %.lf: qddssrc/%.lf                                                                                  
 	
