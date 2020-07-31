@@ -6,7 +6,7 @@ TOOLSLIB = BOBTOOLS
 all: $(BIN_LIB).lib TEST01A.PF $(BIN_LIB).lib TEST01.PF $(BIN_LIB).lib TEST010.RPGLE 
 
 %.lib:
-	-system -qi "CRTLIB $(BIN_LIB)                                                                                               
+	-system -qi "CRTLIB $(BIN_LIB)"                                                                                           
                                                                                                                      
 %.FILE: %.PF                                                                                                        
 		@echo "*** Creating PF [$*]"                                                                                                                                                               
