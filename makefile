@@ -15,9 +15,11 @@ all: $(LIB_TARGETS) $(PGM_TARGETS) $(PF_TARGETS) $(LF_TARGETS)
 %.lib:
 	-system -qi "CRTLIB LIB($*)"                                                                      
                                                                                                                      
-%.PF:                                                                                                                                                                                                                                                                  
-		$(eval crtcmd := $(CRTFRMSTMFLIB)/crtfrmstmf obj($(BIN_LIB)/$*) cmd(CRTPF) srcstmf('./$*.PF'))
-		@system -v "$(TOOLSLIB)/EXECWLIBS LIB($(BIN_LIB)) CMD($(crtcmd))"
+%.PF:                                                                                  
+	
+	-system -qi "CRTSRCPF FILE($(BIN_LIB)/QDDSRC) RCDLEN(112)"
+	system "CPYFRMSTMF FROMSTMF('$<') TOMBR('/QSYS.lib/$(BIN_LIB).lib/QDDSSRC.file/$*.mbr') MBROPT(*REPLACE)"
+	system $(SYSTEM) "CRTPF FILE($(BIN_LIB)/$*) SRCFILE($(BIN_LIB)/QDDSSRC) SRCMBR($*)"
  
 %.FILE: %.LF                                                                                                         
 	@echo "*** Creating LF [$*]"                                                                                                                                                                                                                                         
