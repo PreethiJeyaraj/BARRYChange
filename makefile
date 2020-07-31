@@ -3,9 +3,19 @@ LIBLIST= $(BIN_LIB) $(BIN_LIB_ILE)
 CRTPFFLAGS = AUT($(AUT)) DLTPCT($(DLTPCT)) OPTION($(OPTION)) REUSEDLT($(REUSEDLT)) SIZE($(SIZE)) TEXT(''$(TEXT)'')      
 TOOLSLIB = BOBTOOLS
 
+LIB_TARGETS=$(BIN_LIB).lib
+
+PGM_TARGETS=TEST010.RPGLE
+
+PF_TARGETS= TEST01.PF
+
+LF_TARGETS = TEST01A.LF
+
+all: $(LIB_TARGETS) $(PGM_TARGETS) $(PF_TARGETS) $(LF_TARGETS)
 
 %.lib:
-	-system -qi "CRTLIB $(BIN_LIB)"                                                                                        
+	-system -qi "CRTLIB LIB($*)"
+	@touch $@                                                                                 
                                                                                                                      
 %.FILE: %.PF                                                                                                        
 		@echo "*** Creating PF [$*]"                                                                                                                                                               
