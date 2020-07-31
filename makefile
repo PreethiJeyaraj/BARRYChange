@@ -16,7 +16,7 @@ all: $(LIB_TARGETS) $(PGM_TARGETS) $(PF_TARGETS) $(LF_TARGETS)
 
 %.lib:
 	-system -qi "CRTLIB LIB($*)"
-                                                                                                                     
+	
 %.lf: qddssrc/%.lf                                                                                  
 	
 	-system -qi "CRTSRCPF FILE($(BIN_LIB)/QDDSSRC) RCDLEN(112)"
