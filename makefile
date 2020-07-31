@@ -15,20 +15,21 @@ LF_TARGETS = TEST01A.LF
 all: $(LIB_TARGETS) $(PGM_TARGETS) $(PF_TARGETS) $(LF_TARGETS)
 
 %.lib:
-	-system -qi "CRTLIB LIB($*)"                                                                      
+	-system -qi "CRTLIB LIB($*)"
+	@touch $@
                                                                                                                      
-%.PF:                                                                                  
+%.lf: qddssrc/%.lf                                                                                  
 	
 	-system -qi "CRTSRCPF FILE($(BIN_LIB)/QDDSSRC) RCDLEN(112)"
 	system "CPYFRMSTMF FROMSTMF('$<') TOMBR('/QSYS.lib/$(BIN_LIB).lib/QDDSSRC.file/$*.mbr') MBROPT(*REPLACE)"
 	system $(SYSTEM) "CRTPF FILE($(BIN_LIB)/$*) SRCFILE($(BIN_LIB)/QDDSSRC) SRCMBR($*)"
  
-%.FILE: %.LF                                                                                                         
+%.lf: qddssrc/%.lf                                                                                                         
 	@echo "*** Creating LF [$*]"                                                                                                                                                                                                                                         
 	$(eval crtcmd := $(CRTFRMSTMFLIB)/crtfrmstmf obj($(BIN_LIB)/$*) cmd(CRTLF) srcstmf('./$*.LF') parms('$(CRTLFFLAGS)'))     
 	@system -v "$(TOOLSLIB)/EXECWLIBS LIB($(LIBL)) CMD($(crtcmd))"                 
 
-%.rpgle:
+%.rpgle: qrpgsrc/%.rpgle
 	-system -qi "CRTSRCPF FILE($(BIN_LIB)/QRPGSRC) RCDLEN(112)"
 	system "CPYFRMSTMF FROMSTMF('$<') TOMBR('/QSYS.lib/$(BIN_LIB).lib/QRPGSRC.file/$*.mbr') MBROPT(*REPLACE'./$*.LF')"
 	liblist -a $(LIBLIST);\
