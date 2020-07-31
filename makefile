@@ -8,16 +8,15 @@ all: $(BIN_LIB).lib TEST01A.PF $(BIN_LIB).lib TEST01.PF $(BIN_LIB).lib TEST010.R
 %.lib:
 	-system -qi "CRTLIB $(BIN_LIB)                                                                                               
                                                                                                                      
-%.FILE: %.PF                                                                                                         
- @echo "*** Creating PF [$*]"                                                                                                                                                               
- $(eval crtcmd := $(CRTFRMSTMFLIB)/crtfrmstmf obj($(BIN_LIB)/$*) cmd(CRTPF) srcstmf('$<') parms('$(CRTPFFLAGS)'))     
- @system -v "$(TOOLSLIB)/EXECWLIBS LIB($(LIBL)) CMD($(crtcmd))"               
- @$(TYPEDEF)                                                                                                     
+%.FILE: %.PF                                                                                                        
+		@echo "*** Creating PF [$*]"                                                                                                                                                               
+		$(eval crtcmd := $(CRTFRMSTMFLIB)/crtfrmstmf obj($(BIN_LIB)/$*) cmd(CRTPF) srcstmf('$<') parms('$(CRTPFFLAGS)'))     
+		@system -v "$(TOOLSLIB)/EXECWLIBS LIB($(LIBL)) CMD($(crtcmd))"
  
 %.FILE: %.LF                                                                                                         
- @echo "*** Creating LF [$*]"                                                                                                                                                                                                                                         
- $(eval crtcmd := $(CRTFRMSTMFLIB)/crtfrmstmf obj($(BIN_LIB)/$*) cmd(CRTLF) srcstmf('$<') parms('$(CRTLFFLAGS)'))     
- @system -v "$(TOOLSLIB)/EXECWLIBS LIB($(LIBL)) CMD($(crtcmd))"                 
+	@echo "*** Creating LF [$*]"                                                                                                                                                                                                                                         
+	$(eval crtcmd := $(CRTFRMSTMFLIB)/crtfrmstmf obj($(BIN_LIB)/$*) cmd(CRTLF) srcstmf('$<') parms('$(CRTLFFLAGS)'))     
+	@system -v "$(TOOLSLIB)/EXECWLIBS LIB($(LIBL)) CMD($(crtcmd))"                 
 
 %.rpgle:
 	-system -qi "CRTSRCPF FILE($(BIN_LIB)/QRPGSRC) RCDLEN(112)"
