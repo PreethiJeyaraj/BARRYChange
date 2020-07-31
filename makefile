@@ -27,9 +27,9 @@ all: $(LIB_TARGETS) $(PGM_TARGETS) $(PF_TARGETS) $(LF_TARGETS)
 %.LF:                                                                                                       
 	system "CPYFRMSTMF FROMSTMF('$(IFSPATH)/$*.LF') TOMBR('/QSYS.lib/$(BIN_LIB).lib/QDDSSRC.file/$*.mbr') MBROPT(*REPLACE)"
 	liblist -a $(LIBLIST);\
-	system $(SYSTEM) "CRTLF FILE($(BIN_LIB)/$*) SRCFILE($(BIN_LIB)/QDDSSRC) SRCMBR($*)"               
-
-%.rpgle:
+	system $(SYSTEM) "CRTLF FILE($(BIN_LIB)/$*) SRCFILE($(BIN_LIB)/QDDSSRC) SRCMBR($*)"
+	
+%.RPGLE:
 	-system -qi "CRTSRCPF FILE($(BIN_LIB)/QRPGLESRC) RCDLEN(112)"
 	system "CPYFRMSTMF FROMSTMF('$(IFSPATH)/$*.RPGLE') TOMBR('/QSYS.lib/$(BIN_LIB).lib/QDDSSRC.file/$*.mbr') MBROPT(*REPLACE)"
 	system $(SYSTEM) "CRTRPGPGM PGM($(BIN_LIB)/$*)"
