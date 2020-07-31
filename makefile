@@ -1,6 +1,5 @@
 BIN_LIB = BARRYLIB
 LIBLIST= $(BIN_LIB) $(BIN_LIB_ILE)
-CRTPFFLAGS = AUT($(AUT)) DLTPCT($(DLTPCT)) OPTION($(OPTION)) REUSEDLT($(REUSEDLT)) SIZE($(SIZE)) TEXT(''$(TEXT)'')      
 TOOLSLIB = BOBTOOLS
 
 LIB_TARGETS=$(BIN_LIB).lib
@@ -17,12 +16,12 @@ all: $(LIB_TARGETS) $(PGM_TARGETS) $(PF_TARGETS) $(LF_TARGETS)
 	-system -qi "CRTLIB LIB($*)"                                                                      
                                                                                                                      
 %.PF:                                                                                                                                                                                                                                                                  
-		$(eval crtcmd := $(CRTFRMSTMFLIB)/crtfrmstmf obj($(BIN_LIB)/$*) cmd(CRTPF) srcstmf('$<') parms('$(CRTPFFLAGS)'))     
-		@system -v "$(TOOLSLIB)/EXECWLIBS LIB($(LIBL)) CMD($(crtcmd))"
+		$(eval crtcmd := $(CRTFRMSTMFLIB)/crtfrmstmf obj($(BIN_LIB)/$*) cmd(CRTPF) srcstmf('$<')   
+		@system -v "$(TOOLSLIB)/EXECWLIBS LIB($(BIN_LIB)) CMD($(crtcmd))"
  
 %.FILE: %.LF                                                                                                         
 	@echo "*** Creating LF [$*]"                                                                                                                                                                                                                                         
-	$(eval crtcmd := $(CRTFRMSTMFLIB)/crtfrmstmf obj($(BIN_LIB)/$*) cmd(CRTLF) srcstmf('$<') parms('$(CRTLFFLAGS)'))     
+	$(eval crtcmd := $(CRTFRMSTMFLIB)/crtfrmstmf obj($(BIN_LIB)/$*) cmd(CRTLF) srcstmf('./$*.PF') parms('$(CRTLFFLAGS)'))     
 	@system -v "$(TOOLSLIB)/EXECWLIBS LIB($(LIBL)) CMD($(crtcmd))"                 
 
 %.rpgle:
