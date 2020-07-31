@@ -25,7 +25,7 @@ all: $(LIB_TARGETS) $(PGM_TARGETS) $(PF_TARGETS) $(LF_TARGETS)
  
 %.LF:                                                                                                       
 	system "CPYFRMSTMF FROMSTMF('$(IFSPATH)/$*.LF') TOMBR('/QSYS.lib/$(BIN_LIB).lib/QDDSSRC.file/$*.mbr') MBROPT(*REPLACE)"
-	system $(SYSTEM) "CRTPF FILE($(BIN_LIB)/$*) SRCFILE($(BIN_LIB)/QDDSSRC) SRCMBR($*)"               
+	system $(SYSTEM) "CRTLF FILE($(BIN_LIB)/$*) SRCFILE($(BIN_LIB)/QDDSSRC) SRCMBR($*)"               
 
 %.rpgle:
 	-system -qi "CRTSRCPF FILE($(BIN_LIB)/QRPGLESRC) RCDLEN(112)"
