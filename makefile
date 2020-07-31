@@ -4,6 +4,7 @@ TOOLSLIB = BOBTOOLS
 SYSTEM=-s
 SHELL=/QOpenSys/usr/bin/qsh
 IFSPATH = /tmp/tmp-122454i9jEWOVC8LM8/BARRYChange
+LIBLIST=$(BIN_LIB)
 
 LIB_TARGETS=$(BIN_LIB).lib
 
@@ -25,6 +26,7 @@ all: $(LIB_TARGETS) $(PGM_TARGETS) $(PF_TARGETS) $(LF_TARGETS)
  
 %.LF:                                                                                                       
 	system "CPYFRMSTMF FROMSTMF('$(IFSPATH)/$*.LF') TOMBR('/QSYS.lib/$(BIN_LIB).lib/QDDSSRC.file/$*.mbr') MBROPT(*REPLACE)"
+	liblist -a $(LIBLIST);\
 	system $(SYSTEM) "CRTLF FILE($(BIN_LIB)/$*) SRCFILE($(BIN_LIB)/QDDSSRC) SRCMBR($*)"               
 
 %.rpgle:
