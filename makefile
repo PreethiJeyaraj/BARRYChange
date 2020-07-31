@@ -17,7 +17,7 @@ all: $(LIB_TARGETS) $(PGM_TARGETS) $(PF_TARGETS) $(LF_TARGETS)
 %.lib:
 	-system -qi "CRTLIB LIB($*)"
 
-%.FILE:                                                                        	
+%.PF                                                                        	
 	-system -qi "CRTSRCPF FILE($(BIN_LIB)/QDDSSRC) RCDLEN(112)"
 	system "CPYFRMSTMF FROMSTMF('$<') TOMBR('/QSYS.lib/$(BIN_LIB).lib/QDDSSRC.file/$*.mbr') MBROPT(*REPLACE)"
 	system $(SYSTEM) "CRTPF FILE($(BIN_LIB)/$*) SRCFILE($(BIN_LIB)/QDDSSRC) SRCMBR($*)"
