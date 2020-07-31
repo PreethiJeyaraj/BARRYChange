@@ -3,7 +3,6 @@ LIBLIST= $(BIN_LIB) $(BIN_LIB_ILE)
 CRTPFFLAGS = AUT($(AUT)) DLTPCT($(DLTPCT)) OPTION($(OPTION)) REUSEDLT($(REUSEDLT)) SIZE($(SIZE)) TEXT(''$(TEXT)'')      
 TOOLSLIB = BOBTOOLS
 
-all: $(BIN_LIB).lib TEST01A.PF $(BIN_LIB).lib TEST01.PF $(BIN_LIB).lib TEST010.RPGLE 
 
 %.lib:
 	-system -qi "CRTLIB $(BIN_LIB)"                                                                                        
