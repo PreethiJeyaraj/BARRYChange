@@ -1,9 +1,28 @@
 BIN_LIB = BARRYLIB
+LIBLIST= $(BIN_LIB) $(BIN_LIB_ILE)
+TOOLSPATH := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))     
+CRTPFFLAGS = AUT($(AUT)) DLTPCT($(DLTPCT)) OPTION($(OPTION)) REUSEDLT($(REUSEDLT)) SIZE($(SIZE)) TEXT(''$(TEXT)'')      
+TOOLSLIB = BOBTOOLS
 
-all: $(BIN_LIB).lib inventory.sql
+all: $(BIN_LIB).lib TEST01A.PF $(BIN_LIB).lib TEST01.PF $(BIN_LIB).lib TEST010.RPGLE 
 
 %.lib:
-	-system -qi "CRTLIB $(BIN_LIB)
+	-system -qi "CRTLIB $(BIN_LIB)                                                                                               
+                                                                                                                     
+%.FILE: %.PF                                                                                                         
+ @echo "*** Creating PF [$*]"                                                                                                                                                               
+ $(eval crtcmd := $(CRTFRMSTMFLIB)/crtfrmstmf obj($(BIN_LIB)/$*) cmd(CRTPF) srcstmf('$<') parms('$(CRTPFFLAGS)'))     
+ @system -v "$(TOOLSLIB)/EXECWLIBS LIB($(LIBL)) CMD($(crtcmd))"               
+ @$(TYPEDEF)                                                                                                     
+ 
+%.FILE: %.LF                                                                                                         
+ @echo "*** Creating LF [$*]"                                                                                                                                                                                                                                         
+ $(eval crtcmd := $(CRTFRMSTMFLIB)/crtfrmstmf obj($(BIN_LIB)/$*) cmd(CRTLF) srcstmf('$<') parms('$(CRTLFFLAGS)'))     
+ @system -v "$(TOOLSLIB)/EXECWLIBS LIB($(LIBL)) CMD($(crtcmd))"                 
 
 %.rpgle:
-	system "CRTBNDRPG PGM($(BIN_LIB)/$*) SRCSTMF('QSOURCE/$*.rpgle') TEXT('$(NAME)') REPLACE(*YES)
+	-system -qi "CRTSRCPF FILE($(BIN_LIB)/QRPGSRC) RCDLEN(112)"
+	system "CPYFRMSTMF FROMSTMF('$<') TOMBR('/QSYS.lib/$(BIN_LIB).lib/QRPGSRC.file/$*.mbr') MBROPT(*REPLACE)"
+	liblist -a $(LIBLIST);\
+	system $(SYSTEM) "CRTRPGPGM PGM($(BIN_LIB)/$*)"
+	
